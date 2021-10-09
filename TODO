@@ -1,0 +1,25 @@
+Wanna-do list
+    - Block highlighting (~ parenthesis matching)
+        - Keyboard: deep & screen-readable, mouse: light
+    - Syntax highlighting
+    - Number/String annotation
+    - Static checker
+
+Must-do list
+    1. Suggestion
+    1. Debugger
+
+Principle
+    - MODULARITY!!!
+    - 접근성
+
+Coloring Scheme (Solarized)
+    - 주석: comment
+    - 함수 선언 `ㅎ`: highlighted
+    - 함수 리터럴 `#`/함수 접근 `#ㅇ`: orange
+        * 산술/논리 연산은 yellow? 생성/변환은 violet?
+    - 불러온 모듈 전체: red
+    - 정수 리터럴 `#`: magenta
+    - 인수 접근 `[#]ㅇ#`: blue
+    - 논릿값/빈값 리터럴: cyan
+    - 함수 호출 `ㅎ#`: green
