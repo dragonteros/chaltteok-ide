@@ -32,7 +32,8 @@
       ></textarea>
       <div id="output">
         <span>결과</span>
-        <span>{{ result }}</span>
+        <hr></hr>
+        <pre>{{ result }}</pre>
       </div>
     </main>
   </div>
@@ -52,12 +53,11 @@ export default {
   methods: {
     run: function() {
       if (!this.active) return;
-      console.log(this.code);
       try {
-        const result = run(this.code);
+        const result = run(this.code, "<stdin>");
         this.result = result;
       } catch (e) {
-        this.result = "Error: " + e;
+        this.result = e.message;
       }
     },
 

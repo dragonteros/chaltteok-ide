@@ -1,9 +1,12 @@
-var path = require('path')
-var webpack = require('webpack')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const production = process.env.NODE_ENV === 'production'
+
+const path = require('path');
+const { VueLoaderPlugin } = require('vue-loader');
 
 module.exports = {
-  entry: './src/main.js',
+  mode: production ? 'production' : 'development',
+  devtool: production ? 'cheap-module-source-map' : 'inline-source-map',
+  entry: path.resolve(__dirname, './src/main.js'),
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
@@ -22,10 +25,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: 'css-loader'
-        })
+        use: ['vue-style-loader', 'css-loader'],
       }
     ]
   },
@@ -35,33 +35,11 @@ module.exports = {
     }
   },
   devServer: {
-    historyApiFallback: true,
-    noInfo: true
+    static: {
+      directory: __dirname,
+    },
   },
-  performance: {
-    hints: false
-  },
-  plugins: [new ExtractTextPlugin('main.css')],
-  devtool: '#eval-source-map'
-}
-
-if (process.env.NODE_ENV === 'production') {
-  module.exports.devtool = '#source-map'
-  // http://vue-loader.vuejs.org/en/workflow/production.html
-  module.exports.plugins = (module.exports.plugins || []).concat([
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: '"production"'
-      }
-    }),
-    // new webpack.optimize.UglifyJsPlugin({
-    //   sourceMap: true,
-    //   compress: {
-    //     warnings: false
-    //   }
-    // }),
-    new webpack.LoaderOptionsPlugin({
-      minimize: true
-    })
-  ])
+  plugins: [
+    new VueLoaderPlugin(),
+  ],
 }
